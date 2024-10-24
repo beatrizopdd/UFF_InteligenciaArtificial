@@ -13,10 +13,7 @@ homem(esau).
 homem(jaco).
 homem(jose).
 
-/* RELAÇÕES DEFINIDAS POR REGRAS
-em português: se chover, então o chão fica molhado
-em prolog: o chão fica molhado se chover
-*/
+/* Regras */
 
 ehFilhoDe(X, Y) :- progenitor(Y, X).
 

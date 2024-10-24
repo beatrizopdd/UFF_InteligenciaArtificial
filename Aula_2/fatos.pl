@@ -1,9 +1,3 @@
-/* RELAÇÕES DEFINIDAS POR FATOS
-- relaciona(objetoA, objetoB) = objeto A se relaciona com objeto B
-é diferente de 
-- relaciona(objetoB, objetoA) = objeto B se relaciona com objeto A 
-*/
-
 /* BANCO DE FATOS DA RELAÇÃO "família" */
 
 /* Sara é progenitora de Isaque */
