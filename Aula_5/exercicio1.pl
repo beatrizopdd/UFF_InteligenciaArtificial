@@ -1,7 +1,9 @@
 adiciona(X, L1, [X|L1]).
 
-apaga(X, [X|F], F).
+apaga(_,[],[]) :- !.
+apaga(X, [X|F1], F2) :- apaga(X, F1, F2), !.
 apaga(X,[C|F1],[C|F2]):-
+    X \== C,
     apaga(X,F1,F2).
 
 membro(X, [X|_]).
