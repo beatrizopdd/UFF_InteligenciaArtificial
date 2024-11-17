@@ -2,6 +2,7 @@
 
 ### Prolog no VS Code 
 
+Para instalar:
 - Baixe e instale o [SWI-Prolog](https://www.swi-prolog.org/download/stable);
 - Nas opções de instalação, marque "Add swipl to the system PATH", ```for all users``` ou ```for current user``` a sua escolha;
 - No VS Code, instale a extensão [Prolog](https://marketplace.visualstudio.com/items?itemName=rebornix.prolog);

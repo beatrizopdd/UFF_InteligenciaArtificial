@@ -21,6 +21,8 @@ ancestral(Velho, Novo) :-
     progenitor(Velho, Filho),
     ancestral(Filho, Novo).
 
+
+
 /* PERGUNTAS
 
 Quais são os descendentes de Jay?
