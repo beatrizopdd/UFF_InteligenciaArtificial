@@ -1,12 +1,11 @@
-%entrada:busca([[0,[0, 0]]],[Custo,Solucao]).
-%saida:[4	[[0, 0], [0, 3], [3, 0], [3, 3], [4, 2]]]
+%entrada:busca([[0, 0, 0,[0,0]]],Solucao).
+%saida:[[0, 0], [0, 3], [3, 0], [3, 3], [4, 2], [0, 2], [2, 0]]
 
 %FATOS
 maximo(vaso1, 4).
 maximo(vaso2, 3).
 
 objetivo(2, _).
-objetivo(_, 2).
 
 capacidade(Vaso, Valor, Dif) :-
 	maximo(Vaso, Max),
@@ -43,7 +42,7 @@ altera([Va1, Va2], [Vn1, 0]) :-
 	Vn1 is Va1 + Va2.
 
 %BUSCA
-busca([[Custo, [VasoA1, VasoA2]|Estados]|_], [Custo, Solucao]) :-
+busca([[_, _,  _, [VasoA1, VasoA2]|Estados]|_], Solucao) :-
 	objetivo(VasoA1, VasoA2),
 	reverse([[VasoA1, VasoA2]|Estados], Solucao).
 
@@ -51,39 +50,37 @@ busca([EstadoAtual|EstadosVisitados], Solucao) :-
 	estende(EstadoAtual, NovosEstados),
 	append(EstadosVisitados, NovosEstados, EstadosPossiveis),
 	ordena(EstadosPossiveis, EstadosOrdenados),
-	busca(EstadosOrdenados, Solucao),
-    !.
+	busca(EstadosOrdenados, Solucao).
 
 %ExpandeCaminhos
-estende([CustoA, [VasoA1, VasoA2]|Estados], NovosEstados) :-
+estende([CustoA, _, _, [VasoA1, VasoA2]|Estados], NovosEstados) :-
 	findall(
-    	[CustoN, [VasoN1, VasoN2], [VasoA1, VasoA2]|Estados],
+    	[CustoN, EstimativaN, MetricaN, [VasoN1, VasoN2], [VasoA1, VasoA2]|Estados],
     	(altera([VasoA1, VasoA2], [VasoN1, VasoN2]),
     	    not(member([VasoN1, VasoN2], [[VasoA1, VasoA2]|Estados])),
-    	    CustoN is CustoA + 1),
+    	    CustoN is CustoA + 1,
+            EstimativaN is VasoN1 + VasoN2,
+            MetricaN is CustoN + EstimativaN),
         NovosEstados).
 
 %OrdenaCaminhos
-ordena(Estados, EstadosOrdenados) :- 
-    quicksort(Estados, EstadosOrdenados).
+%PARTICIONAMENTO
+divide(_, [], [], []).
 
-quicksort([], []).
+divide([CP, EP, Pivo|EstadosP], [[CS, ES, Soma|EstadosS]|Cauda], [[CS, ES, Soma|EstadosS]|Menores], Maiores) :-
+    Soma < Pivo,
+    divide([CP, EP, Pivo|EstadosP], Cauda, Menores, Maiores),
+    !.
 
-quicksort([X|Cauda], ListaOrdenada):-
-	particionar(X, Cauda, Menor, Maior),
-	quicksort(Menor, MenorOrd),
-	quicksort(Maior, MaiorOrd),
-	append(MenorOrd, [X|MaiorOrd], ListaOrdenada).
+divide([CP, EP, Pivo|EstadosP], [[CS, ES, Soma|EstadosS]|Cauda], Menores, [[CS, ES, Soma|EstadosS]|Maiores]) :-
+    Soma >= Pivo,
+    divide([CP, EP, Pivo|EstadosP], Cauda, Menores, Maiores).
 
-maior([[C1, _]|_], [[C2, _]|_]) :-
-    C1 > C2 .
+%ORDENACAO
+ordena([], []).
 
-particionar(_, [], [], []).
-
-particionar(X, [Y|Cauda], [Y|Menor], Maior):-
-    maior(X, Y),
-    !,
-    particionar(X, Cauda, Menor, Maior).
-
-particionar(X, [Y|Cauda], Menor, [Y|Maior]):-
-    particionar(X, Cauda, Menor, Maior).
+ordena([Pivo|Cauda], Final) :-
+    divide(Pivo, Cauda, Menores, Maiores),
+    ordena(Menores, FinalMenores),
+    ordena(Maiores, FinalMaiores),
+    append(FinalMenores, [Pivo|FinalMaiores], Final).

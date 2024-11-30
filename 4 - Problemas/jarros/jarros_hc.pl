@@ -1,12 +1,11 @@
 %entrada:busca([[0,[0,0]]],Solucao).
-%saida:[0,0],[0,3],[3,0],[3,3],[4,2]
+%saida:[[0, 0], [0, 3], [3, 0], [4, 0], [1, 3], [1, 0], [0, 1], [4, 1], [2, 3]]
 
 %FATOS
 maximo(vaso1, 4).
 maximo(vaso2, 3).
 
 objetivo(2, _).
-objetivo(_, 2).
 
 capacidade(Vaso, Valor, Dif) :-
 	maximo(Vaso, Max),
@@ -63,26 +62,23 @@ estende([_, [VasoA1, VasoA2]|Estados], NovosEstados) :-
         NovosEstados).
 
 %OrdenaCaminhos
-ordena(Estados, EstadosOrdenados) :- 
-    quicksort(Estados, EstadosOrdenados).
+%PARTICIONAMENTO
+divide(_, [], [], []).
 
-quicksort([], []).
+divide([Pivo|EstadosP], [[Estimativa|EstadosE]|Cauda], [[Estimativa|EstadosE]|Menores], Maiores) :-
+    Estimativa < Pivo,
+    divide([Pivo|EstadosP], Cauda, Menores, Maiores),
+    !.
 
-quicksort([X|Cauda], ListaOrdenada):-
-	particionar(X, Cauda, Menor, Maior),
-	quicksort(Menor, MenorOrd),
-	quicksort(Maior, MaiorOrd),
-	append(MenorOrd, [X|MaiorOrd], ListaOrdenada).
+divide([Pivo|EstadosP], [[Estimativa|EstadosE]|Cauda], Menores, [[Estimativa|EstadosE]|Maiores]) :-
+    Estimativa >= Pivo,
+    divide([Pivo|EstadosP], Cauda, Menores, Maiores).
 
-maior([S1, _], [S2, _]) :-
-    S1 > S2 .
+%ORDENACAO
+ordena([], []).
 
-particionar(_, [], [], []).
-
-particionar(X, [Y|Cauda], [Y|Menor], Maior):-
-    maior(X, Y),
-    !,
-    particionar(X, Cauda, Menor, Maior).
-
-particionar(X, [Y|Cauda], Menor, [Y|Maior]):-
-    particionar(X, Cauda, Menor, Maior).
+ordena([Pivo|Cauda], Final) :-
+    divide(Pivo, Cauda, Menores, Maiores),
+    ordena(Menores, FinalMenores),
+    ordena(Maiores, FinalMaiores),
+    append(FinalMenores, [Pivo|FinalMaiores], Final).
