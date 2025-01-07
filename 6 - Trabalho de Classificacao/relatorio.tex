@@ -1,0 +1,220 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{mdframed}
+
+\begin{document}
+	
+% Folha de rosto
+\begin{titlepage}
+	\centering
+	\vspace{2cm}
+	
+	{UNIVERSIDADE FEDERAL FLUMINENSE} \\ [0.1cm]
+	{BACHARELADO EM CIÊNCIA DA COMPUTAÇÃO} \\ [0.1cm]
+	{TCC00297 - INTELIGÊNCIA ARTIFICIAL}
+	
+	\vfill
+	
+	{\Large \bfseries Trabalho de Classificação}
+	
+	\vfill
+	
+	{BEATRIZ DE OLIVEIRA PIEDADE}
+	
+	\vfill
+	{NITERÓI} \\
+	{2024}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+\section{Introdução} 
+
+\quad\space O objetivo deste trabalho é realizar a classificação do conjunto de dados "Secondary Mushroom", buscando prever se um cogumelo é comestível ou venenoso. O dataset foi analisado com foco na preparação, construção e avaliação de modelos de Machine Learning que maximizem a performance em métricas relevantes.
+
+O conjunto de dados contém 61.068 registros e 20 atributos. A tabela abaixo apresenta uma visão geral dos atributos disponíveis no conjunto:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\textbf{Nome} & \textbf{Papel} & \textbf{Tipo} & \textbf{ Valores ausentes} \\
+		\hline
+		class & Target & Categorical & no \\
+		\hline
+		cap-diameter & Feature & Continuous & no \\
+		\hline
+		cap-shape & Feature & Categorical & no \\
+		\hline
+		cap-surface & Feature & Categorical & yes \\
+		\hline
+		cap-color & Feature & Categorical & no \\
+		\hline
+		does-bruise-or-bleed & Feature & Categorical & no \\
+		\hline
+		gill-attachment & Feature & Categorical & yes \\
+		\hline
+		gill-spacing & Feature & Categorical & yes \\
+		\hline
+		gill-color & Feature & Categorical & no \\
+		\hline
+		stem-height & Feature & Continuous & no \\
+		\hline
+		stem-width & Feature & Continuous & no \\
+		\hline
+		stem-root & Feature & Categorical & yes \\
+		\hline
+		stem-surface & Feature & Categorical & yes \\
+		\hline
+		stem-color & Feature & Categorical & no \\
+		\hline
+		veil-type & Feature & Categorical & yes \\
+		\hline
+		veil-color & Feature & Categorical & yes \\
+		\hline
+		has-ring & Feature & Categorical & no \\
+		\hline
+		ring-type & Feature & Categorical & yes \\
+		\hline
+		spore-print-color & Feature & Categorical & yes \\
+		\hline
+		habitat & Feature & Categorical & no \\
+		\hline
+		season & Feature & Categorical & no \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Coleta de dados}
+
+\quad\space O conjunto de dados foi obtido do Repositório de Machine Learning da UCI.
+
+\begin{mdframed}
+	\begin{verbatim}
+		# CARREGANDO DADOS
+		from ucimlrepo import fetch_ucirepo 
+		
+		# importando dataset
+		dataset = fetch_ucirepo(id=763)
+		
+		# coletando as informações
+		data_frame = dataset.data.original
+	\end{verbatim}
+\end{mdframed}
+\vspace{0.15cm}
+\quad\space O conjunto de dados, assim como todas as tabelas derivadas, está estruturado no formato \textit{DataFrame}, uma poderosa estrutura de dados fornecida pela biblioteca \textit{pandas}. Essa estrutura simplifica a manipulação, análise e pré-processamento dos dados, permitindo operações eficientes.
+
+\subsection{Pré-processamento de dados}
+
+\quad\space O conjunto de dados foi tratado para minimizar o impacto de dados nulos, duplicados ou mal formatados na performance dos modelos. O pré-processamento envolveu as seguintes etapas:
+
+\begin{description}
+	\item[1.] A remoção de colunas com muitos valores nulos, utilizando o parâmetro \textit{thresh} para evitar a perda excessiva de informações. O valor do \textit{thresh} é dado pela variável \textit{tolerancia}, que garante que colunas com 70$\%$ de dados não nulos sejam mantidas.
+	\item[2.] A remoção de dados duplicados para evitar redundância e influências desproporcionais na modelagem.
+	\item[3.] A transformação de variáveis categóricas em valores numéricos, garantindo que o modelo possa interpretar essas variáveis.
+\end{description}
+
+\begin{mdframed}
+	\begin{verbatim}
+		# TRATANDO DADOS
+		import pandas
+		from sklearn.preprocessing import LabelEncoder
+		
+		# removendo colunas com muitos nulos
+		tolerancia = len(data_frame) * 0.7
+		data_frame = data_frame.dropna(axis=1, thresh=tolerancia)
+		
+		# removendo dados duplicados
+		data_frame = data_frame.drop_duplicates()
+		
+		# convertendo colunas categóricas em valores inteiros
+		for coluna in data_frame.columns:
+		if (data_frame[coluna].dtype == type(object)):
+			conversor = LabelEncoder()
+			data_frame[coluna] = conversor.fit_transform(
+			     																															data_frame[coluna])
+	\end{verbatim}
+\end{mdframed}
+
+\vspace{0.15cm}
+\quad\space Ao término do processo, o conjunto de dados foi reduzido a 60.922 registros tratados.
+
+\subsection{Divisão de dados}
+
+\quad\space Dado o tamanho do conjunto de dados e o número de atributos, ele será dividido em $80\%$ para treinamento e $20\%$ para teste, utilizando a função $\textit{train$$\_$$test$$\_$$split()}$ do pacote $\textit{sklearn.model$$\_$$selection}$.
+
+\begin{mdframed}[userdefinedwidth=\linewidth]
+	\begin{verbatim}
+		# DIVIDINDO O DATASET TRATADO
+		import numpy
+		from sklearn.model_selection import train_test_split
+
+		atributos = data_frame.drop(["class"], axis=1)
+		respostas = data_frame[["class"]]
+
+		a_treino, a_teste, r_treino, r_teste = train_test_split(
+																																									atributos, 
+																																									respostas, 
+																																									test_size=0.2, 
+																																									random_state=42)
+
+		# convertendo de (N, 1) para (N,)
+		r_treino = numpy.ravel(r_treino)
+		r_teste = numpy.ravel(r_teste)
+		\end{verbatim}
+\end{mdframed}
+
+\vspace{0.15cm}
+\quad\space Além disso, as tabelas resultantes das respostas de treino e teste serão convertidas para o formato \textit{(n\_sample,)}, que é o formato esperado pelos classificadores para que possam processar os dados corretamente.
+
+\subsection{Treinamento e avaliação do modelo}
+
+\quad\space Para este trabalho, serão utilizados os modelos de aprendizado de máquina: Árvore de Decisão (DT), Random Forest (RF) e Rede Neural Multilayer Perceptron (MLP). Os modelos passarão por ajustes nos parâmetros do classificador e serão avaliados com base na performance dos algoritmos e na sua explicabilidade.
+
+Na avaliação da performance, serão utilizadas as métricas \textit{Acurácia} e \textit{F1-Score}, onde a \textit{Acurácia} é dada por
+
+\begin{equation*}
+	Acuracia = \frac{PrevisoesCorretas}{PrevisoesTotais} 
+\end{equation*}
+
+\noindent
+ e o \textit{F1-Score} é calculado como
+ 
+\begin{equation*}
+F1 = 2 \cdot \frac{Precisao \cdot Recall}{Precisao + Recall}
+\end{equation*}
+
+\begin{equation*}
+Precisao = \frac{VerdadeirosPositivos}{VerdadeirosPositivos + FalsosPostivos} 
+\end{equation*}
+
+\begin{equation*}
+Recall = \frac{VerdadeirosPositivos}{VerdadeirosPositivos + FalsosNegativos} 
+\end{equation*}
+
+\newpage
+\section{Árvore de decisão}
+\subsection{Algoritmo utilizado}
+\subsection{Variações de parâmetros}
+\subsection{Performance}
+
+\newpage
+\section{Random Forest}
+\subsection{Algoritmo utilizado}
+\subsection{Variações de parâmetros}
+\subsection{Performance}
+
+\newpage
+\section{Rede Neural Multilayer perceptron}
+
+\subsection{Algoritmo utilizado}
+\subsection{Variações de parâmetros}
+\subsection{Performance}
+
+\newpage
+\section{Conclusão}
+
+- Uma análise crítica de escolher e colocar um modelo em produção para o domínio do dataset selecionado.
+
+\end{document}

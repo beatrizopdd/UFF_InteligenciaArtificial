@@ -1,0 +1,188 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\begin{document}
+	
+% Folha de rosto
+\begin{titlepage}
+	\centering
+	\vspace{2cm}
+	
+	{UNIVERSIDADE FEDERAL FLUMINENSE} \\ [0.1cm]
+	{BACHARELADO EM CIÊNCIA DA COMPUTAÇÃO} \\ [0.1cm]
+	{TCC00297 - INTELIGÊNCIA ARTIFICIAL}
+	
+	\vfill
+	
+	{\Large \bfseries Trabalho de Implementação: Problema dos Jarros D'Água}
+	
+	\vfill
+	
+	{BEATRIZ DE OLIVEIRA PIEDADE} \\
+	{JULIA DOS SANTOS SPEZANI} \\
+	{LEONARDO AMORIM MENDES} 
+	
+	\vfill
+	{NITERÓI} \\
+	{2024}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+\section{Problema}
+
+São dados 2 recipientes, R1 e R2, um com capacidade de 4 litros e outro com capacidade de 3 litros. Os recipientes não têm marcas de medidas. Deve ser colocado exatamente 2 litros no recipiente R1.
+
+\subsection{Espaço de Busca}
+Espaço cartesiano composto pelo conjunto de pares ordenados de inteiros (x,y) tal que x $\in$ \textlquill0, 1, 2, 3, 4\textrquill, y $\in$ \textlquill0, 1, 2, 3\textrquill
+
+\subsection{Estados Finais}
+Pares ordenados de inteiros (x,y) tal que x $\in$ \textlquill2\textrquill, y $\in$ \textlquill0, 1, 2, 3\textrquill
+
+\newpage
+\section{Solução}
+
+Foi utilizado o algoritmo A$^{*}$, que consiste na busca do caminho mais promissor levando em consideração a avaliação (soma dos litros de água nos jarros) e o custo (número de trocas entre os jarros).  
+
+\subsection{Fatos}
+
+O estado meta da busca:
+\begin{verbatim}
+	objetivo(2, _).
+\end{verbatim}
+
+\noindent
+O estado máximo de cada jarro:
+\begin{verbatim}
+	maximo(jarro1, 4).
+	maximo(jarro2, 3).
+\end{verbatim}
+
+\subsection{Algoritmo de busca}
+
+Primeiro checa se o primeiro elemento do caminho atual é o estado meta. Caso seja, o caminho é invertido para que o movimento mais antigo vire o primeiro da lista e o estado mais recente vire o último.
+
+\begin{verbatim}
+	busca([[_, _,  _, [JarroA1, JarroA2]|Estados]|_], Solucao) :-
+	    objetivo(JarroA1, JarroA2),
+	    reverse([[JarroA1, JarroA2]|Estados], Solucao).
+\end{verbatim}
+
+\noindent
+Caso contrário, cria uma lista com todos os vizinhos do estado atual. A lista gerada é concatenada à lista de caminhos visitados e essa junção é ordenada de forma que o caminho mais promissor seja o primeiro elemento. 
+\begin{verbatim}
+	busca([CaminhoAtual|CaminhosVisitados], Solucao) :-
+	    estende(CaminhoAtual, NovosCaminhos),
+	    append(CaminhosVisitados, NovosCaminhos, CaminhosPossiveis),
+	    ordena(CaminhosPossiveis, CaminhosOrdenados),
+	    busca(CaminhosOrdenados, Solucao).
+\end{verbatim}
+
+\subsection{Busca por vizinhos}
+
+A busca por vizinhos amplia a lista de possibilidades a partir do último estado atingido no caminho atual. Ao alterar o estado, calcula-se a nova métrica de decisão.
+\begin{verbatim}
+	estende([CustoA, _, _, [JarroA1, JarroA2]|Estados], NovosCaminhos) :-
+	    findall(
+	        [CustoN, AvaliacaoN, MetricaN, [JarroN1, JarroN2], [JarroA1, JarroA2]
+	                                                                     |Estados],
+	        (altera([JarroA1, JarroA2], [JarroN1, JarroN2]),
+	            not(member([JarroN1, JarroN2], [[JarroA1, JarroA2]|Estados])),
+	            CustoN is CustoA + 1,
+	            AvaliacaoN is JarroN1 + JarroN2,
+	            MetricaN is CustoN + AvaliacaoN),
+	        NovosCaminhos).
+\end{verbatim}
+
+\noindent
+A nova métrica para decisão \textit{f(n)} é dada pela soma do custo \textit{g(n)} com a avaliação \textit{h(n)}, onde:
+
+\begin{equation*}
+ 	\begin{aligned}
+ 		&f(novo) = g(novo) + h(novo) \\
+ 		&g(novo) = g(antigo) + 1 \\
+ 		&h(novo) = valorJarro1 + valorJarro2
+ 	\end{aligned}
+\end{equation*}
+
+\subsection{Estados possíveis}
+Um dos jarros vazio e o outro mantendo o conteúdo.
+\begin{verbatim}
+	altera([_, Ja2], [0, Ja2]).
+	altera([Ja1, _], [Ja1, 0]).
+\end{verbatim}
+
+\noindent
+Um dos jarros cheio ao máximo e o outro mantendo o conteúdo.
+\begin{verbatim}
+	altera([_, Ja2], [Jn1, Ja2]) :- maximo(jarro1, Jn1).
+	altera([Ja1, _], [Ja1, Jn2]) :- maximo(jarro2, Jn2).
+\end{verbatim}
+
+\noindent
+Conteúdo de um transferido para o outro.
+\begin{verbatim}
+	capacidade(Jarro, Valor, Dif) :-
+	    maximo(Jarro, Max),
+	    Dif is Max - Valor.
+	
+	altera([Ja1, Ja2], [Jn1, Jn2]) :- 
+	    capacidade(jarro2, Ja2, Capacidade),
+	    Ja1 >= Capacidade,
+	    Jn1 is Ja1 - Capacidade,
+	    Jn2 is Capacidade + Ja2. %valorMaximo
+	altera([Ja1, Ja2], [0, Jn2]) :- 
+	    capacidade(jarro2, Ja2, Capacidade),
+	    Ja1 < Capacidade,
+	    Jn2 is Ja1 + Ja2.
+	
+	altera([Ja1, Ja2], [Jn1, Jn2]) :- 
+	    capacidade(jarro1, Ja1, Capacidade),
+	    Ja2 >= Capacidade,
+	    Jn1 is Capacidade + Ja1, %valorMaximo
+	    Jn2 is Ja2 - Capacidade.
+	altera([Ja1, Ja2], [Jn1, 0]) :- 
+	    capacidade(jarro1, Ja1, Capacidade),
+	    Ja2 < Capacidade,
+	    Jn1 is Ja1 + Ja2.
+\end{verbatim}
+
+\subsection{Ordenação}
+Foi utilizado o algoritmo quicksort para ordenar a lista de caminhos:
+
+\begin{verbatim}
+	%PARTICIONAMENTO
+	divide(_, [], [], []).
+	
+	divide([CP, EP, Pivo|EstadosP], [[CS, ES, Soma|EstadosS]|Cauda], 
+	                               [[CS, ES, Soma|EstadosS]|Menores], Maiores) :-
+	    Soma < Pivo,
+	    divide([CP, EP, Pivo|EstadosP], Cauda, Menores, Maiores),
+	    !.
+	
+	divide([CP, EP, Pivo|EstadosP], [[CS, ES, Soma|EstadosS]|Cauda], 
+	                               Menores, [[CS, ES, Soma|EstadosS]|Maiores]) :-
+	    Soma >= Pivo,
+	    divide([CP, EP, Pivo|EstadosP], Cauda, Menores, Maiores).
+	
+	%ORDENACAO
+	ordena([], []).
+	
+	ordena([Pivo|Cauda], Final) :-
+	    divide(Pivo, Cauda, Menores, Maiores),
+	    ordena(Menores, FinalMenores),
+	    ordena(Maiores, FinalMaiores),
+	    append(FinalMenores, [Pivo|FinalMaiores], Final).
+\end{verbatim}
+
+\subsection{Soluções}
+Para cada estado inicial em \textit{busca([[0, 0, 0, [x, y]]], Solucao).}, a solução é:
+\begin{description}
+	\item[(0, 0):] [[0, 0], [0, 3], [3, 0], [3, 3], [4, 2], [0, 2], [2, 0]]	
+	\item[(2, 0):] [[2, 0]]
+	\item[(0, 2):] [[0, 2], [2, 0]]
+	\item[(3, 0):] [[3, 0], [3, 3], [4, 2], [0, 2], [2, 0]]
+	\item[(0, 1):] [[0, 1], [4, 1], [2, 3]]	
+\end{description}
+
+\end{document}

@@ -1,6 +1,6 @@
 # Inteligência Artificial
 
-### Prolog no VS Code 
+## Prolog 
 
 Para instalar:
 - Baixe e instale o [SWI-Prolog](https://www.swi-prolog.org/download/stable);
@@ -13,15 +13,17 @@ Para utilizar:
 - Para carregar o arquivo digite ```?- consult(nomeDoArquivo).```;
 - Para dar comandos sempre termine com o ponto final;
 
-### Arquivos
+## Scikit-learning
 
-- Fatos <br>
-Existem relações definidas por fatos. ```relaciona(objetoA, objetoB) = objeto A se relaciona com objeto B``` é diferente de ```relaciona(objetoB, objetoA) = objeto B se relaciona com objeto A```
+Para instalar:
+- No prompt de comando, digite ```pip install -U scikit-learn```;
+- Para confirmar a instalação digite ```python -m pip show scikit-learn```;
 
-- Regras <br>
-Existem relações definidas por fatos.
-Em português: se chover, então o chão fica molhado;
-em prolog: o chão fica molhado se chover.
+Para importar datasets:
+- Digite ```pip install ucimlrepo```;
 
-- Recursividade <br>
-Relações recursivas são definidas por duas regras: o caso base e o caso recursivo.
+Para plotar árvores de decisão:
+- Digite ```python -m pip install -U matplotlib```;
+
+- https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success
+- https://archive.ics.uci.edu/datasets?skip=0&take=10&sort=desc&orderBy=NumHits&search=&Types=Tabular&NumInstances=1008&NumInstances=63000000&NumFeatures=20&NumFeatures=100
