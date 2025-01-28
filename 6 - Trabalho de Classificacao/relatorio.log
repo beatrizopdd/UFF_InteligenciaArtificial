@@ -1,10 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.3)  29 DEC 2024 09:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.3)  14 JAN 2025 21:21
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/Beatriz/Workspace/UFF_InteligenciaArtificial/6 - Trabalho de Classificacao/relatorio.tex"
-(c:/Users/Beatriz/Workspace/UFF_InteligenciaArtificial/6 - Trabalho de Classificacao/relatorio.tex
+**relatorio.tex
+(./relatorio.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
 (c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -234,24 +233,42 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 \c@mdf@env@ii=\count289
 \c@mdf@zref@counter=\count290
 Package zref Info: New property: mdf@pagevalue on input line 895.
+) (c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+ (c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+)
+\Gin@req@height=\dimen151
+\Gin@req@width=\dimen152
 ) (./relatorio.aux)
 \openout1 = `relatorio.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+ (c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
 
 [1
 
@@ -262,54 +279,121 @@ LaTeX Font Info:    ... okay on input line 5.
 
 
 [1]
-Package mdframed Info: Not enough space on this page on input line 104.
+Package mdframed Info: Not enough space on this page on input line 105.
 
 
 [2]
-Package mdframed Info: Not enough space on this page on input line 104.
+Package mdframed Info: Not enough space on this page on input line 105.
 
-Overfull \hbox (0.99475pt too wide) in paragraph at lines 115--116
+Overfull \hbox (0.99475pt too wide) in paragraph at lines 116--117
 []\OT1/cmr/m/n/12 A trans-forma^^Xc~ao de vari^^Saveis categ^^Soricas em val-ores num^^Sericos, garantindo
  []
 
 
 
 [3]
-Overfull \hbox (0.77928pt too wide) in paragraph at lines 173--174
+
+[4]
+Overfull \hbox (0.77928pt too wide) in paragraph at lines 213--214
   \OT1/cmr/m/n/12 Para este tra-balho, ser~ao uti-liza-dos os mod-e-los de apren-dizado de m^^Saquina:
  []
 
 
 
-[4]
-
 [5]
+Package mdframed Info: Not enough space on this page on input line 249.
+
 
 [6]
+Overfull \hbox (13.65018pt too wide) in paragraph at lines 287--287
+[]  \OT1/cmtt/m/n/12 f1 = f1_score(r_teste, r_previsao_teste, average="weighted")[] 
+ []
+
+
+Overfull \hbox (13.65018pt too wide) in paragraph at lines 287--287
+[]  \OT1/cmtt/m/n/12 lista_resultados_ad.append([parametros["id"], acuracia, f1])[] 
+ []
+
+<imagem/adp.png, id=31, 1059.20718pt x 450.9347pt>
+File: imagem/adp.png Graphic file (type png)
+<use imagem/adp.png>
+Package pdftex.def Info: imagem/adp.png  used on input line 296.
+(pdftex.def)             Requested size: 390.0pt x 166.0313pt.
+
 
 [7]
+<imagem/adr.png, id=36, 332.74312pt x 379.4175pt>
+File: imagem/adr.png Graphic file (type png)
+<use imagem/adr.png>
+Package pdftex.def Info: imagem/adr.png  used on input line 304.
+(pdftex.def)             Requested size: 170.71652pt x 194.66403pt.
 
-[8]
 
-[9] (./relatorio.aux)
+[8 <./imagem/adp.png> <./imagem/adr.png>]
+Overfull \hbox (7.47517pt too wide) in paragraph at lines 345--345
+[] \OT1/cmtt/m/n/12 lista_resultados_rf.append([parametros["id"], acuracia, f1])[] 
+ []
+
+
+
+[9]
+<imagem/rfp.png, id=45, 1063.72406pt x 472.76625pt>
+File: imagem/rfp.png Graphic file (type png)
+<use imagem/rfp.png>
+Package pdftex.def Info: imagem/rfp.png  used on input line 354.
+(pdftex.def)             Requested size: 390.0pt x 173.33372pt.
+<imagem/rfr.png, id=46, 344.78813pt x 383.93437pt>
+File: imagem/rfr.png Graphic file (type png)
+<use imagem/rfr.png>
+Package pdftex.def Info: imagem/rfr.png  used on input line 362.
+(pdftex.def)             Requested size: 170.71652pt x 190.09789pt.
+
+
+[10 <./imagem/rfp.png> <./imagem/rfr.png>]
+Overfull \hbox (13.65018pt too wide) in paragraph at lines 401--401
+[] \OT1/cmtt/m/n/12 lista_resultados_mlp.append([parametros["id"], acuracia, f1])[] 
+ []
+
+<imagem/mlpp.png, id=52, 1070.49937pt x 521.69907pt>
+File: imagem/mlpp.png Graphic file (type png)
+<use imagem/mlpp.png>
+Package pdftex.def Info: imagem/mlpp.png  used on input line 410.
+(pdftex.def)             Requested size: 390.0pt x 190.06433pt.
+
+
+[11]
+Overfull \hbox (1.3532pt too wide) in paragraph at lines 415--416
+  \OT1/cmr/m/n/12 Ob-ser-vando os da-dos ar-mazena-dos em \OT1/cmr/m/it/12 lista$[]$resultados$[]$mlp \OT1/cmr/m/n/12 ^^Se poss^^S^^Pvel obter: 
+ []
+
+<imagem/mlpr.png, id=56, 347.79938pt x 429.10312pt>
+File: imagem/mlpr.png Graphic file (type png)
+<use imagem/mlpr.png>
+Package pdftex.def Info: imagem/mlpr.png  used on input line 418.
+(pdftex.def)             Requested size: 170.71652pt x 210.62248pt.
+
+
+[12 <./imagem/mlpp.png> <./imagem/mlpr.png>]
+
+[13] (./relatorio.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3293 strings out of 475289
- 58359 string characters out of 5766684
- 467761 words of memory out of 5000000
- 26134 multiletter control sequences out of 15000+600000
+ 3675 strings out of 475289
+ 65220 string characters out of 5766684
+ 478183 words of memory out of 5000000
+ 26498 multiletter control sequences out of 15000+600000
  564441 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 84i,8n,93p,537b,299s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,9n,93p,581b,316s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/Users/Beatriz/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on relatorio.pdf (10 pages, 93770 bytes).
+Output written on relatorio.pdf (14 pages, 584871 bytes).
 PDF statistics:
- 67 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 93 PDF objects out of 1000 (max. 8388607)
+ 52 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
